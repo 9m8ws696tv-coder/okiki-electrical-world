@@ -1,30 +1,1205 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Okiki Electrical World</title>
+<meta name="theme-color" content="#07121d">
+<title>Okiki Electrical World | Electrical & Electronics</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#142033}header,footer{background:#07121d;color:white;padding:18px 5%}.brand{font-size:24px;font-weight:900}.brand span,.tag{color:#ffd400}.bar{display:flex;gap:15px;align-items:center;flex-wrap:wrap}.search{flex:1;padding:13px;border-radius:8px;border:0;min-width:220px}.cart,.btn{background:#ffd400;border:0;border-radius:8px;padding:12px 16px;font-weight:900;cursor:pointer}.hero{padding:45px 5%;background:linear-gradient(110deg,#07121d,#263747);color:#fff}.hero h1{font-size:clamp(36px,6vw,62px);margin:10px 0}.hero p{max-width:760px;line-height:1.6}.wrap{padding:30px 5%}.notice{background:#fff8c7;border:1px solid #e2c600;padding:15px;border-radius:10px;margin-bottom:20px}.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}select,input{padding:12px;border:1px solid #d7dde5;border-radius:8px;background:white}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}.card{background:#fff;border:1px solid #e0e5eb;border-radius:12px;padding:14px}.pic{height:135px;background:linear-gradient(135deg,#edf0f3,#fff);border-radius:9px;display:grid;place-items:center;text-align:center;color:#687384;font-weight:700}.cat{font-size:12px;color:#667085;margin-top:10px}.price{font-weight:900;margin:8px 0}.muted{font-size:13px;color:#667085}.btn{width:100%}.modal{display:none;position:fixed;inset:0;background:#0008;z-index:5;align-items:end}.modal.open{display:flex}.panel{background:#fff;width:100%;max-height:80vh;overflow:auto;border-radius:18px 18px 0 0;padding:22px}.item{padding:10px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between}.wa{display:block;text-align:center;background:#20c76a;color:#fff;text-decoration:none;padding:13px;border-radius:8px;font-weight:900;margin-top:15px}
-</style></head><body>
-<header><div class="bar"><div class="brand">⚡ OKIKI <span>ELECTRICAL WORLD</span></div>
-<input id="search" class="search" placeholder="Search electrical tools, materials or electronics...">
-<button class="cart" onclick="openCart()">Order List (<span id="count">0</span>)</button></div></header>
-<section class="hero"><div class="tag">ELECTRICAL • ELECTRONICS • HOME APPLIANCES</div>
-<h1>Shop Electrical & Electronics</h1>
-<p>Browse our catalog of electrical materials, tools, electronics, appliances, lighting, power and backup products. <b>Prices are not fixed.</b> Add items to your order and we will confirm the current price and availability before payment.</p></section>
-<main class="wrap"><div class="notice"><b>Price on request:</b> No fixed prices are displayed. Final price, stock and delivery can be confirmed after an order request.</div>
-<div class="tools"><select id="cat"><option value="">All categories</option></select><input id="filter" placeholder="Filter products..."></div>
-<div id="grid" class="grid"></div></main>
-<footer><h2>OKIKI ELECTRICAL WORLD</h2><p>Electrical and electronics works and materials • Home appliances • Buying and installing</p><p><b>DM let's work and we are active 24/7 ✅</b></p><p>08133987128</p></footer>
-<div id="modal" class="modal" onclick="if(event.target===this)closeCart()"><div class="panel"><h2>Order Request</h2><div id="items"></div><p id="empty">Your order list is empty.</p><a id="wa" class="wa" target="_blank">Send Request on WhatsApp</a><button class="btn" style="margin-top:10px;background:#e9edf2" onclick="closeCart()">Close</button></div></div>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f6f8;
+  color:#142033;
+}
+button,input,select{font:inherit}
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#07121d;
+  color:#fff;
+  padding:14px 5%;
+  box-shadow:0 3px 15px #0003;
+}
+.header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+.brand{
+  font-size:22px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.brand span,
+.yellow{color:#ffd400}
+.menu-btn{
+  display:none;
+  background:#ffd400;
+  border:0;
+  border-radius:8px;
+  padding:9px 12px;
+  cursor:pointer;
+  font-weight:900;
+}
+.nav{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+.nav a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size:14px;
+}
+.nav a:hover{color:#ffd400}
+.search-area{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+.search{
+  flex:1;
+  padding:13px 15px;
+  border:0;
+  border-radius:9px;
+  min-width:0;
+  outline:none;
+}
+.cart{
+  background:#ffd400;
+  color:#07121d;
+  border:0;
+  border-radius:9px;
+  padding:12px 16px;
+  font-weight:900;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.cart:hover,.btn:hover{transform:translateY(-1px)}
+.hero{
+  padding:65px 5%;
+  background:
+    radial-gradient(circle at 85% 20%,#ffd40022,transparent 25%),
+    linear-gradient(120deg,#07121d,#263747);
+  color:#fff;
+}
+.hero-inner{max-width:1100px;margin:auto}
+.badge{
+  display:inline-block;
+  color:#07121d;
+  background:#ffd400;
+  padding:8px 12px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:900;
+}
+.hero h1{
+  font-size:clamp(38px,7vw,68px);
+  line-height:1;
+  margin:18px 0;
+}
+.hero p{
+  max-width:760px;
+  line-height:1.7;
+  color:#e5eaf0;
+}
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+.hero-btn{
+  display:inline-block;
+  padding:13px 18px;
+  border-radius:9px;
+  text-decoration:none;
+  font-weight:900;
+}
+.hero-btn.primary{
+  background:#ffd400;
+  color:#07121d;
+}
+.hero-btn.secondary{
+  border:1px solid #ffffff55;
+  color:#fff;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  max-width:700px;
+  margin-top:35px;
+  gap:12px;
+}
+.stat{
+  background:#ffffff0d;
+  border:1px solid #ffffff18;
+  border-radius:12px;
+  padding:15px;
+}
+.stat strong{
+  display:block;
+  font-size:20px;
+  color:#ffd400;
+}
+.stat span{
+  font-size:12px;
+  color:#d5dce4;
+}
+.wrap{
+  max-width:1400px;
+  margin:auto;
+  padding:32px 5%;
+}
+.notice{
+  background:#fff8c7;
+  border:1px solid #e2c600;
+  padding:16px;
+  border-radius:12px;
+  margin-bottom:24px;
+}
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:15px;
+  margin-bottom:18px;
+}
+.section-title h2{margin:0;font-size:28px}
+.section-title p{margin:5px 0 0;color:#667085}
+.tools{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+select,.filter{
+  padding:12px;
+  border:1px solid #d7dde5;
+  border-radius:9px;
+  background:#fff;
+  outline:none;
+}
+.filter{flex:1;min-width:220px}
+.category-buttons{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:4px 0 16px;
+  scrollbar-width:thin;
+}
+.category-buttons button{
+  border:1px solid #d7dde5;
+  background:#fff;
+  padding:9px 13px;
+  border-radius:30px;
+  white-space:nowrap;
+  cursor:pointer;
+  font-weight:700;
+}
+.category-buttons button.active{
+  background:#07121d;
+  color:#ffd400;
+  border-color:#07121d;
+}
+.results{
+  color:#667085;
+  font-size:13px;
+  margin-bottom:14px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:16px;
+}
+.card{
+  background:#fff;
+  border:1px solid #e0e5eb;
+  border-radius:14px;
+  padding:13px;
+  overflow:hidden;
+  transition:.2s;
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 25px #07121d12;
+}
+.pic{
+  height:155px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  background:
+    linear-gradient(135deg,#eef2f5,#fff);
+  border:1px solid #edf0f3;
+  font-size:42px;
+}
+.pic small{
+  font-size:11px;
+  color:#7b8490;
+  margin-top:8px;
+}
+.cat{
+  font-size:11px;
+  color:#667085;
+  margin-top:11px;
+  font-weight:700;
+  text-transform:uppercase;
+}
+.card h3{
+  margin:7px 0;
+  font-size:17px;
+}
+.price{
+  font-weight:900;
+  color:#111827;
+  margin:8px 0 3px;
+}
+.muted{
+  font-size:12px;
+  color:#667085;
+  margin-bottom:12px;
+}
+.btn{
+  width:100%;
+  background:#ffd400;
+  color:#07121d;
+  border:0;
+  border-radius:9px;
+  padding:12px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.2s;
+}
+.empty-products{
+  text-align:center;
+  padding:50px 20px;
+  background:#fff;
+  border-radius:14px;
+  border:1px solid #e0e5eb;
+}
+.services{
+  margin-top:50px;
+}
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.service{
+  background:#fff;
+  border:1px solid #e0e5eb;
+  border-radius:13px;
+  padding:20px;
+}
+.service-icon{font-size:28px}
+.service h3{margin:10px 0 6px}
+.service p{
+  color:#667085;
+  font-size:13px;
+  line-height:1.5;
+}
+.contact{
+  margin-top:45px;
+  background:#07121d;
+  color:#fff;
+  border-radius:18px;
+  padding:30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+.contact h2{margin-top:0}
+.whatsapp{
+  display:inline-block;
+  background:#20c76a;
+  color:#fff;
+  text-decoration:none;
+  padding:13px 18px;
+  border-radius:9px;
+  font-weight:900;
+}
+footer{
+  margin-top:45px;
+  background:#050d15;
+  color:#cfd6de;
+  padding:35px 5%;
+}
+.footer-inner{
+  max-width:1400px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:30px;
+}
+footer h2,footer h3{color:#fff}
+footer p{line-height:1.6;font-size:13px}
+.footer-link{
+  color:#ffd400;
+  text-decoration:none;
+}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0009;
+  z-index:50;
+  align-items:flex-end;
+  justify-content:center;
+}
+.modal.open{display:flex}
+.panel{
+  background:#fff;
+  width:min(700px,100%);
+  max-height:88vh;
+  overflow:auto;
+  border-radius:20px 20px 0 0;
+  padding:24px;
+  animation:slideUp .2s ease;
+}
+@keyframes slideUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+.panel-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.close{
+  border:0;
+  background:#eef1f4;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+}
+.item{
+  padding:13px 0;
+  border-bottom:1px solid #eee;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.item-name{font-weight:800}
+.item-category{
+  display:block;
+  color:#667085;
+  font-size:11px;
+  margin-top:3px;
+}
+.qty{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.qty button{
+  width:30px;
+  height:30px;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:900;
+}
+.remove{
+  color:#c00;
+  border:0;
+  background:none;
+  cursor:pointer;
+  font-size:12px;
+}
+.wa{
+  display:block;
+  text-align:center;
+  background:#20c76a;
+  color:#fff;
+  text-decoration:none;
+  padding:14px;
+  border-radius:9px;
+  font-weight:900;
+  margin-top:18px;
+}
+.clear{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:0;
+  background:#eef1f4;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:800;
+}
+.no-items{
+  padding:30px 10px;
+  text-align:center;
+  color:#667085;
+}
+.back-top{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:45px;
+  height:45px;
+  border:0;
+  border-radius:50%;
+  background:#ffd400;
+  color:#07121d;
+  font-weight:900;
+  cursor:pointer;
+  display:none;
+  z-index:10;
+}
+@media(max-width:800px){
+  .nav{
+    display:none;
+    position:absolute;
+    top:60px;
+    left:0;
+    right:0;
+    background:#07121d;
+    padding:15px 5%;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .nav.show{display:flex}
+  .menu-btn{display:block}
+  .header-top .brand{
+    font-size:17px;
+  }
+  .hero{padding:45px 5%}
+  .stats{grid-template-columns:1fr}
+  .service-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .footer-inner{
+    grid-template-columns:1fr;
+  }
+  .contact{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+@media(max-width:500px){
+  .search-area{
+    flex-direction:column;
+  }
+  .cart{
+    width:100%;
+  }
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+  .card{padding:9px}
+  .pic{height:120px;font-size:32px}
+  .card h3{
+    font-size:14px;
+  }
+  .service-grid{
+    grid-template-columns:1fr;
+  }
+  .section-title{
+    display:block;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div class="brand">⚡ OKIKI <span>ELECTRICAL WORLD</span></div>
+    <nav id="nav" class="nav">
+      <a href="#catalog">Catalogue</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  </div>
+  <div class="search-area">
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="🔎 Search products, tools, materials..."
+      autocomplete="off"
+    >
+    <button class="cart" onclick="openCart()">
+      🛒 Order List (<span id="count">0</span>)
+    </button>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <span class="badge">ELECTRICAL • ELECTRONICS • HOME APPLIANCES</span>
+    <h1>Everything Electrical.<br><span class="yellow">One Place.</span></h1>
+    <p>
+      Browse electrical materials, tools, electronics, lighting,
+      home appliances, power and backup products.
+      <b>Prices are not fixed.</b>
+      Add what you need to your order and contact us for the current
+      price and availability.
+    </p>
+    <div class="hero-actions">
+      <a class="hero-btn primary" href="#catalog">Browse Catalogue</a>
+      <a class="hero-btn secondary" href="https://wa.me/2348133987128" target="_blank">
+        💬 WhatsApp Us
+      </a>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <strong>24/7</strong>
+        <span>Active & available</span>
+      </div>
+      <div class="stat">
+        <strong>100+</strong>
+        <span>Products listed</span>
+      </div>
+      <div class="stat">
+        <strong>DM</strong>
+        <span>Let's work</span>
+      </div>
+    </div>
+  </div>
+</section>
+<main class="wrap">
+  <div class="notice">
+    <b>💡 Price on request:</b>
+    No fixed prices are displayed. Final price, stock and availability
+    can be confirmed after your order request.
+  </div>
+  <section id="catalog">
+    <div class="section-title">
+      <div>
+        <h2>Product Catalogue</h2>
+        <p>Select a category or search for what you need.</p>
+      </div>
+    </div>
+    <div class="tools">
+      <select id="cat">
+        <option value="">All categories</option>
+      </select>
+      <input
+        id="filter"
+        class="filter"
+        placeholder="Filter products..."
+        autocomplete="off"
+      >
+    </div>
+    <div id="categoryButtons" class="category-buttons"></div>
+    <div id="results" class="results"></div>
+    <div id="grid" class="grid"></div>
+  </section>
+  <section id="services" class="services">
+    <div class="section-title">
+      <div>
+        <h2>What We Offer</h2>
+        <p>Electrical and electronics solutions for your needs.</p>
+      </div>
+    </div>
+    <div class="service-grid">
+      <div class="service">
+        <div class="service-icon">⚡</div>
+        <h3>Electrical Materials</h3>
+        <p>Cables, switches, sockets, breakers, conduits and other electrical materials.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">🔧</div>
+        <h3>Electrical Work</h3>
+        <p>Electrical works including conduit work, surface work and installation support.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">📺</div>
+        <h3>Electronics</h3>
+        <p>Browse electronics, entertainment products, networking and accessories.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">🏠</div>
+        <h3>Home Appliances</h3>
+        <p>Home appliances and electrical products for your home and everyday needs.</p>
+      </div>
+    </div>
+  </section>
+  <section id="contact" class="contact">
+    <div>
+      <h2>Ready to place an order?</h2>
+      <p>
+        Choose your products, add them to your order list and send your
+        request directly on WhatsApp.
+      </p>
+      <strong>DM let's work and we are active 24/7 ✅</strong>
+    </div>
+    <a class="whatsapp" href="https://wa.me/2348133987128" target="_blank">
+      💬 WhatsApp: 08133987128
+    </a>
+  </section>
+</main>
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h2>⚡ OKIKI ELECTRICAL WORLD</h2>
+      <p>
+        Electrical and electronics works and materials.
+        Home appliances. Buying and installing.
+      </p>
+      <p><b>DM let's work and we are active 24/7 ✅</b></p>
+    </div>
+    <div>
+      <h3>Catalogue</h3>
+      <p><a class="footer-link" href="#catalog">Browse Products</a></p>
+      <p><a class="footer-link" href="#services">Our Services</a></p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>📞 08133987128</p>
+      <p>🟢 Active 24/7</p>
+      <p>
+        <a class="footer-link"
+           href="https://wa.me/2348133987128"
+           target="_blank">
+          WhatsApp Us
+        </a>
+      </p>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:30px">
+    © <span id="year"></span> Okiki Electrical World
+  </p>
+</footer>
+<button id="backTop" class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  ↑
+</button>
+<!-- ORDER MODAL -->
+<div
+  id="modal"
+  class="modal"
+  onclick="if(event.target===this)closeCart()"
+>
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h2 style="margin:0">🛒 Order Request</h2>
+        <p style="margin:5px 0;color:#667085;font-size:13px">
+          Review your selected products.
+        </p>
+      </div>
+      <button class="close" onclick="closeCart()">×</button>
+    </div>
+    <div id="items"></div>
+    <div id="empty" class="no-items">
+      Your order list is empty.<br>
+      Add products from the catalogue.
+    </div>
+    <a id="wa" class="wa" target="_blank">
+      💬 Send Request on WhatsApp
+    </a>
+    <button class="clear" onclick="clearCart()">
+      Clear Order List
+    </button>
+  </div>
+</div>
 <script>
-const products=[{"name": "Electrical Cables & Wires", "category": "Electrical Materials"}, {"name": "Single Core Cable", "category": "Electrical Materials"}, {"name": "Flexible Cable", "category": "Electrical Materials"}, {"name": "Armoured Cable", "category": "Electrical Materials"}, {"name": "Conduit Pipes", "category": "Electrical Materials"}, {"name": "Conduit Accessories", "category": "Electrical Materials"}, {"name": "Cable Trunking", "category": "Electrical Materials"}, {"name": "Cable Ties", "category": "Electrical Materials"}, {"name": "Cable Lugs", "category": "Electrical Materials"}, {"name": "Cable Glands", "category": "Electrical Materials"}, {"name": "Junction Boxes", "category": "Electrical Materials"}, {"name": "Distribution Boards", "category": "Electrical Materials"}, {"name": "MCB", "category": "Electrical Materials"}, {"name": "MCCB", "category": "Electrical Materials"}, {"name": "RCCB / RCD", "category": "Electrical Materials"}, {"name": "RCBO", "category": "Electrical Materials"}, {"name": "Changeover Switches", "category": "Electrical Materials"}, {"name": "Isolators", "category": "Electrical Materials"}, {"name": "Contactors", "category": "Electrical Materials"}, {"name": "Relays", "category": "Electrical Materials"}, {"name": "Fuses & Fuse Holders", "category": "Electrical Materials"}, {"name": "Terminal Blocks", "category": "Electrical Materials"}, {"name": "Busbars", "category": "Electrical Materials"}, {"name": "DIN Rails", "category": "Electrical Materials"}, {"name": "Cable Connectors", "category": "Electrical Materials"}, {"name": "Electrical Tape", "category": "Electrical Materials"}, {"name": "Heat Shrink Tubes", "category": "Electrical Materials"}, {"name": "1-Gang Switches", "category": "Switches & Sockets"}, {"name": "2-Gang Switches", "category": "Switches & Sockets"}, {"name": "3-Gang Switches", "category": "Switches & Sockets"}, {"name": "Dimmer Switches", "category": "Switches & Sockets"}, {"name": "Two-Way Switches", "category": "Switches & Sockets"}, {"name": "Wall Sockets", "category": "Switches & Sockets"}, {"name": "USB Sockets", "category": "Switches & Sockets"}, {"name": "USB-C Sockets", "category": "Switches & Sockets"}, {"name": "TV Sockets", "category": "Switches & Sockets"}, {"name": "Data Sockets", "category": "Switches & Sockets"}, {"name": "Weatherproof Sockets", "category": "Switches & Sockets"}, {"name": "Industrial Plugs & Sockets", "category": "Switches & Sockets"}, {"name": "Plug Tops", "category": "Switches & Sockets"}, {"name": "Extension Leads", "category": "Switches & Sockets"}, {"name": "Power Strips", "category": "Switches & Sockets"}, {"name": "Adapters", "category": "Switches & Sockets"}, {"name": "LED Bulbs", "category": "Lighting"}, {"name": "LED Tubes", "category": "Lighting"}, {"name": "LED Panels", "category": "Lighting"}, {"name": "Downlights", "category": "Lighting"}, {"name": "Ceiling Lights", "category": "Lighting"}, {"name": "Wall Lights", "category": "Lighting"}, {"name": "Floodlights", "category": "Lighting"}, {"name": "Security Lights", "category": "Lighting"}, {"name": "Street Lights", "category": "Lighting"}, {"name": "Solar Lights", "category": "Lighting"}, {"name": "Emergency Lights", "category": "Lighting"}, {"name": "Pendant Lights", "category": "Lighting"}, {"name": "Chandeliers", "category": "Lighting"}, {"name": "Track Lights", "category": "Lighting"}, {"name": "Spotlights", "category": "Lighting"}, {"name": "Lamp Holders", "category": "Lighting"}, {"name": "LED Drivers", "category": "Lighting"}, {"name": "Testers", "category": "Electrical Tools"}, {"name": "Multimeters", "category": "Electrical Tools"}, {"name": "Clamp Meters", "category": "Electrical Tools"}, {"name": "Voltage Detectors", "category": "Electrical Tools"}, {"name": "Wire Strippers", "category": "Electrical Tools"}, {"name": "Cable Cutters", "category": "Electrical Tools"}, {"name": "Crimping Tools", "category": "Electrical Tools"}, {"name": "Pliers", "category": "Electrical Tools"}, {"name": "Screwdrivers", "category": "Electrical Tools"}, {"name": "Spanner Sets", "category": "Electrical Tools"}, {"name": "Adjustable Wrenches", "category": "Electrical Tools"}, {"name": "Hammers", "category": "Electrical Tools"}, {"name": "Drills", "category": "Electrical Tools"}, {"name": "Cordless Drills", "category": "Electrical Tools"}, {"name": "Impact Drivers", "category": "Electrical Tools"}, {"name": "Angle Grinders", "category": "Electrical Tools"}, {"name": "Heat Guns", "category": "Electrical Tools"}, {"name": "Soldering Irons", "category": "Electrical Tools"}, {"name": "Extension Reels", "category": "Electrical Tools"}, {"name": "Tool Boxes", "category": "Electrical Tools"}, {"name": "Tool Bags", "category": "Electrical Tools"}, {"name": "Measuring Tapes", "category": "Electrical Tools"}, {"name": "Spirit Levels", "category": "Electrical Tools"}, {"name": "Fish Tapes", "category": "Electrical Tools"}, {"name": "Televisions", "category": "Electronics"}, {"name": "Smart TVs", "category": "Electronics"}, {"name": "Monitors", "category": "Electronics"}, {"name": "Laptops", "category": "Electronics"}, {"name": "Desktop Computers", "category": "Electronics"}, {"name": "Tablets", "category": "Electronics"}, {"name": "Mobile Phones", "category": "Electronics"}, {"name": "Feature Phones", "category": "Electronics"}, {"name": "Bluetooth Speakers", "category": "Electronics"}, {"name": "Home Theatre Systems", "category": "Electronics"}, {"name": "Sound Bars", "category": "Electronics"}, {"name": "Headphones", "category": "Electronics"}, {"name": "Earphones", "category": "Electronics"}, {"name": "Earbuds", "category": "Electronics"}, {"name": "Power Banks", "category": "Electronics"}, {"name": "USB Hubs", "category": "Electronics"}, {"name": "Chargers", "category": "Electronics"}, {"name": "Phone Cables", "category": "Electronics"}, {"name": "HDMI Cables", "category": "Electronics"}, {"name": "Memory Cards", "category": "Electronics"}, {"name": "USB Flash Drives", "category": "Electronics"}, {"name": "Hard Drives", "category": "Electronics"}, {"name": "SSDs", "category": "Electronics"}, {"name": "Routers", "category": "Electronics"}, {"name": "MiFi Devices", "category": "Electronics"}, {"name": "Network Switches", "category": "Electronics"}, {"name": "Wi-Fi Extenders", "category": "Electronics"}, {"name": "CCTV Cameras", "category": "Electronics"}, {"name": "DVRs", "category": "Electronics"}, {"name": "NVRs", "category": "Electronics"}, {"name": "Intercoms", "category": "Electronics"}, {"name": "Doorbells", "category": "Electronics"}, {"name": "Remote Controls", "category": "Electronics"}, {"name": "Refrigerators", "category": "Home Appliances"}, {"name": "Freezers", "category": "Home Appliances"}, {"name": "Washing Machines", "category": "Home Appliances"}, {"name": "Air Conditioners", "category": "Home Appliances"}, {"name": "Fans", "category": "Home Appliances"}, {"name": "Air Coolers", "category": "Home Appliances"}, {"name": "Electric Irons", "category": "Home Appliances"}, {"name": "Electric Kettles", "category": "Home Appliances"}, {"name": "Microwaves", "category": "Home Appliances"}, {"name": "Blenders", "category": "Home Appliances"}, {"name": "Food Processors", "category": "Home Appliances"}, {"name": "Air Fryers", "category": "Home Appliances"}, {"name": "Cookers", "category": "Home Appliances"}, {"name": "Gas Cookers", "category": "Home Appliances"}, {"name": "Electric Cookers", "category": "Home Appliances"}, {"name": "Toasters", "category": "Home Appliances"}, {"name": "Sandwich Makers", "category": "Home Appliances"}, {"name": "Coffee Makers", "category": "Home Appliances"}, {"name": "Vacuum Cleaners", "category": "Home Appliances"}, {"name": "Water Dispensers", "category": "Home Appliances"}, {"name": "Water Heaters", "category": "Home Appliances"}, {"name": "Hair Dryers", "category": "Home Appliances"}, {"name": "Generators", "category": "Power & Backup"}, {"name": "Inverters", "category": "Power & Backup"}, {"name": "Inverter Batteries", "category": "Power & Backup"}, {"name": "Solar Panels", "category": "Power & Backup"}, {"name": "Solar Inverters", "category": "Power & Backup"}, {"name": "Charge Controllers", "category": "Power & Backup"}, {"name": "UPS", "category": "Power & Backup"}, {"name": "Stabilizers", "category": "Power & Backup"}, {"name": "Surge Protectors", "category": "Power & Backup"}, {"name": "Power Stations", "category": "Power & Backup"}, {"name": "Deep Cycle Batteries", "category": "Power & Backup"}, {"name": "Battery Chargers", "category": "Power & Backup"}, {"name": "Transfer Switches", "category": "Power & Backup"}, {"name": "Solar Cables", "category": "Power & Backup"}, {"name": "MC4 Connectors", "category": "Power & Backup"}, {"name": "Solar Mounting Accessories", "category": "Power & Backup"}, {"name": "Smoke Detectors", "category": "Safety & Security"}, {"name": "Heat Detectors", "category": "Safety & Security"}, {"name": "Fire Alarm Panels", "category": "Safety & Security"}, {"name": "Alarm Systems", "category": "Safety & Security"}, {"name": "CCTV Systems", "category": "Safety & Security"}, {"name": "Motion Sensors", "category": "Safety & Security"}, {"name": "Electric Fence Accessories", "category": "Safety & Security"}, {"name": "Safety Gloves", "category": "Safety & Security"}, {"name": "Safety Helmets", "category": "Safety & Security"}, {"name": "Safety Goggles", "category": "Safety & Security"}, {"name": "Reflective Vests", "category": "Safety & Security"}, {"name": "Batteries", "category": "Accessories & Consumables"}, {"name": "Fuses", "category": "Accessories & Consumables"}, {"name": "Bulb Holders", "category": "Accessories & Consumables"}, {"name": "Plugs", "category": "Accessories & Consumables"}, {"name": "Cable Clips", "category": "Accessories & Consumables"}, {"name": "Wall Plugs", "category": "Accessories & Consumables"}, {"name": "Screws", "category": "Accessories & Consumables"}, {"name": "Electrical Boxes", "category": "Accessories & Consumables"}, {"name": "Labels", "category": "Accessories & Consumables"}, {"name": "Installation Accessories", "category": "Accessories & Consumables"}, {"name": "Spare Parts", "category": "Accessories & Consumables"}]; let cart=[];
-const cats=[...new Set(products.map(x=>x.category))]; cats.forEach(x=>cat.insertAdjacentHTML('beforeend',`<option>${x}</option>`));
-function render(){let q=(search.value+' '+filter.value).toLowerCase(), c=cat.value;
-let a=products.filter(p=>(!c||p.category===c)&&(!q||(p.name+' '+p.category).toLowerCase().includes(q)));
-grid.innerHTML=a.map((p,i)=>`<article class="card"><div class="pic">${p.name}<br><small>Product photo</small></div><div class="cat">${p.category}</div><h3>${p.name}</h3><div class="price">Price on request</div><div class="muted">Confirm price & availability</div><button class="btn" onclick="add(${JSON.stringify(p.name)},${JSON.stringify(p.category)})">Add to Order</button></article>`).join('')}
-function add(name,category){cart.push({name,category});update();openCart()}
-function update(){count.textContent=cart.length;items.innerHTML=cart.map((p,i)=>`<div class="item"><span>${i+1}. ${p.name}<br><small>${p.category}</small></span><button onclick="cart.splice(${i},1);update()" style="border:0;background:none;color:#c00">Remove</button></div>`).join('');empty.style.display=cart.length?'none':'block';
-let msg=cart.length?'Hello Okiki Electrical World, I want to request prices and availability for:%0A'+cart.map((p,i)=>(i+1)+'. '+encodeURIComponent(p.name)).join('%0A')+'%0A%0APlease confirm the current price and availability.':'';
-wa.href='https://wa.me/2348133987128?text='+msg}
-function openCart(){modal.classList.add('open')} function closeCart(){modal.classList.remove('open')}
-[search,filter].forEach(x=>x.addEventListener('input',render));cat.addEventListener('change',render);render();update();
-</script></body></html>
+/* =========================
+   PRODUCT CATALOGUE
+========================= */
+const products = [
+{"name":"Electrical Cables & Wires","category":"Electrical Materials"},
+{"name":"Single Core Cable","category":"Electrical Materials"},
+{"name":"Flexible Cable","category":"Electrical Materials"},
+{"name":"Armoured Cable","category":"Electrical Materials"},
+{"name":"Conduit Pipes","category":"Electrical Materials"},
+{"name":"Conduit Accessories","category":"Electrical Materials"},
+{"name":"Cable Trunking","category":"Electrical Materials"},
+{"name":"Cable Ties","category":"Electrical Materials"},
+{"name":"Cable Lugs","category":"Electrical Materials"},
+{"name":"Cable Glands","category":"Electrical Materials"},
+{"name":"Junction Boxes","category":"Electrical Materials"},
+{"name":"Distribution Boards","category":"Electrical Materials"},
+{"name":"MCB","category":"Electrical Materials"},
+{"name":"MCCB","category":"Electrical Materials"},
+{"name":"RCCB / RCD","category":"Electrical Materials"},
+{"name":"RCBO","category":"Electrical Materials"},
+{"name":"Changeover Switches","category":"Electrical Materials"},
+{"name":"Isolators","category":"Electrical Materials"},
+{"name":"Contactors","category":"Electrical Materials"},
+{"name":"Relays","category":"Electrical Materials"},
+{"name":"Fuses & Fuse Holders","category":"Electrical Materials"},
+{"name":"Terminal Blocks","category":"Electrical Materials"},
+{"name":"Busbars","category":"Electrical Materials"},
+{"name":"DIN Rails","category":"Electrical Materials"},
+{"name":"Cable Connectors","category":"Electrical Materials"},
+{"name":"Electrical Tape","category":"Electrical Materials"},
+{"name":"Heat Shrink Tubes","category":"Electrical Materials"},
+{"name":"1-Gang Switches","category":"Switches & Sockets"},
+{"name":"2-Gang Switches","category":"Switches & Sockets"},
+{"name":"3-Gang Switches","category":"Switches & Sockets"},
+{"name":"Dimmer Switches","category":"Switches & Sockets"},
+{"name":"Two-Way Switches","category":"Switches & Sockets"},
+{"name":"Wall Sockets","category":"Switches & Sockets"},
+{"name":"USB Sockets","category":"Switches & Sockets"},
+{"name":"USB-C Sockets","category":"Switches & Sockets"},
+{"name":"TV Sockets","category":"Switches & Sockets"},
+{"name":"Data Sockets","category":"Switches & Sockets"},
+{"name":"Weatherproof Sockets","category":"Switches & Sockets"},
+{"name":"Industrial Plugs & Sockets","category":"Switches & Sockets"},
+{"name":"Plug Tops","category":"Switches & Sockets"},
+{"name":"Extension Leads","category":"Switches & Sockets"},
+{"name":"Power Strips","category":"Switches & Sockets"},
+{"name":"Adapters","category":"Switches & Sockets"},
+{"name":"LED Bulbs","category":"Lighting"},
+{"name":"LED Tubes","category":"Lighting"},
+{"name":"LED Panels","category":"Lighting"},
+{"name":"Downlights","category":"Lighting"},
+{"name":"Ceiling Lights","category":"Lighting"},
+{"name":"Wall Lights","category":"Lighting"},
+{"name":"Floodlights","category":"Lighting"},
+{"name":"Security Lights","category":"Lighting"},
+{"name":"Street Lights","category":"Lighting"},
+{"name":"Solar Lights","category":"Lighting"},
+{"name":"Emergency Lights","category":"Lighting"},
+{"name":"Pendant Lights","category":"Lighting"},
+{"name":"Chandeliers","category":"Lighting"},
+{"name":"Track Lights","category":"Lighting"},
+{"name":"Spotlights","category":"Lighting"},
+{"name":"Lamp Holders","category":"Lighting"},
+{"name":"LED Drivers","category":"Lighting"},
+{"name":"Testers","category":"Electrical Tools"},
+{"name":"Multimeters","category":"Electrical Tools"},
+{"name":"Clamp Meters","category":"Electrical Tools"},
+{"name":"Voltage Detectors","category":"Electrical Tools"},
+{"name":"Wire Strippers","category":"Electrical Tools"},
+{"name":"Cable Cutters","category":"Electrical Tools"},
+{"name":"Crimping Tools","category":"Electrical Tools"},
+{"name":"Pliers","category":"Electrical Tools"},
+{"name":"Screwdrivers","category":"Electrical Tools"},
+{"name":"Spanner Sets","category":"Electrical Tools"},
+{"name":"Adjustable Wrenches","category":"Electrical Tools"},
+{"name":"Hammers","category":"Electrical Tools"},
+{"name":"Drills","category":"Electrical Tools"},
+{"name":"Cordless Drills","category":"Electrical Tools"},
+{"name":"Impact Drivers","category":"Electrical Tools"},
+{"name":"Angle Grinders","category":"Electrical Tools"},
+{"name":"Heat Guns","category":"Electrical Tools"},
+{"name":"Soldering Irons","category":"Electrical Tools"},
+{"name":"Extension Reels","category":"Electrical Tools"},
+{"name":"Tool Boxes","category":"Electrical Tools"},
+{"name":"Tool Bags","category":"Electrical Tools"},
+{"name":"Measuring Tapes","category":"Electrical Tools"},
+{"name":"Spirit Levels","category":"Electrical Tools"},
+{"name":"Fish Tapes","category":"Electrical Tools"},
+{"name":"Televisions","category":"Electronics"},
+{"name":"Smart TVs","category":"Electronics"},
+{"name":"Monitors","category":"Electronics"},
+{"name":"Laptops","category":"Electronics"},
+{"name":"Desktop Computers","category":"Electronics"},
+{"name":"Tablets","category":"Electronics"},
+{"name":"Mobile Phones","category":"Electronics"},
+{"name":"Feature Phones","category":"Electronics"},
+{"name":"Bluetooth Speakers","category":"Electronics"},
+{"name":"Home Theatre Systems","category":"Electronics"},
+{"name":"Sound Bars","category":"Electronics"},
+{"name":"Headphones","category":"Electronics"},
+{"name":"Earphones","category":"Electronics"},
+{"name":"Earbuds","category":"Electronics"},
+{"name":"Power Banks","category":"Electronics"},
+{"name":"USB Hubs","category":"Electronics"},
+{"name":"Chargers","category":"Electronics"},
+{"name":"Phone Cables","category":"Electronics"},
+{"name":"HDMI Cables","category":"Electronics"},
+{"name":"Memory Cards","category":"Electronics"},
+{"name":"USB Flash Drives","category":"Electronics"},
+{"name":"Hard Drives","category":"Electronics"},
+{"name":"SSDs","category":"Electronics"},
+{"name":"Routers","category":"Electronics"},
+{"name":"MiFi Devices","category":"Electronics"},
+{"name":"Network Switches","category":"Electronics"},
+{"name":"Wi-Fi Extenders","category":"Electronics"},
+{"name":"CCTV Cameras","category":"Electronics"},
+{"name":"DVRs","category":"Electronics"},
+{"name":"NVRs","category":"Electronics"},
+{"name":"Intercoms","category":"Electronics"},
+{"name":"Doorbells","category":"Electronics"},
+{"name":"Remote Controls","category":"Electronics"},
+{"name":"Refrigerators","category":"Home Appliances"},
+{"name":"Freezers","category":"Home Appliances"},
+{"name":"Washing Machines","category":"Home Appliances"},
+{"name":"Air Conditioners","category":"Home Appliances"},
+{"name":"Fans","category":"Home Appliances"},
+{"name":"Air Coolers","category":"Home Appliances"},
+{"name":"Electric Irons","category":"Home Appliances"},
+{"name":"Electric Kettles","category":"Home Appliances"},
+{"name":"Microwaves","category":"Home Appliances"},
+{"name":"Blenders","category":"Home Appliances"},
+{"name":"Food Processors","category":"Home Appliances"},
+{"name":"Air Fryers","category":"Home Appliances"},
+{"name":"Cookers","category":"Home Appliances"},
+{"name":"Gas Cookers","category":"Home Appliances"},
+{"name":"Electric Cookers","category":"Home Appliances"},
+{"name":"Toasters","category":"Home Appliances"},
+{"name":"Sandwich Makers","category":"Home Appliances"},
+{"name":"Coffee Makers","category":"Home Appliances"},
+{"name":"Vacuum Cleaners","category":"Home Appliances"},
+{"name":"Water Dispensers","category":"Home Appliances"},
+{"name":"Water Heaters","category":"Home Appliances"},
+{"name":"Hair Dryers","category":"Home Appliances"},
+{"name":"Generators","category":"Power & Backup"},
+{"name":"Inverters","category":"Power & Backup"},
+{"name":"Inverter Batteries","category":"Power & Backup"},
+{"name":"Solar Panels","category":"Power & Backup"},
+{"name":"Solar Inverters","category":"Power & Backup"},
+{"name":"Charge Controllers","category":"Power & Backup"},
+{"name":"UPS","category":"Power & Backup"},
+{"name":"Stabilizers","category":"Power & Backup"},
+{"name":"Surge Protectors","category":"Power & Backup"},
+{"name":"Power Stations","category":"Power & Backup"},
+{"name":"Deep Cycle Batteries","category":"Power & Backup"},
+{"name":"Battery Chargers","category":"Power & Backup"},
+{"name":"Transfer Switches","category":"Power & Backup"},
+{"name":"Solar Cables","category":"Power & Backup"},
+{"name":"MC4 Connectors","category":"Power & Backup"},
+{"name":"Solar Mounting Accessories","category":"Power & Backup"},
+{"name":"Smoke Detectors","category":"Safety & Security"},
+{"name":"Heat Detectors","category":"Safety & Security"},
+{"name":"Fire Alarm Panels","category":"Safety & Security"},
+{"name":"Alarm Systems","category":"Safety & Security"},
+{"name":"CCTV Systems","category":"Safety & Security"},
+{"name":"Motion Sensors","category":"Safety & Security"},
+{"name":"Electric Fence Accessories","category":"Safety & Security"},
+{"name":"Safety Gloves","category":"Safety & Security"},
+{"name":"Safety Helmets","category":"Safety & Security"},
+{"name":"Safety Goggles","category":"Safety & Security"},
+{"name":"Reflective Vests","category":"Safety & Security"},
+{"name":"Batteries","category":"Accessories & Consumables"},
+{"name":"Fuses","category":"Accessories & Consumables"},
+{"name":"Bulb Holders","category":"Accessories & Consumables"},
+{"name":"Plugs","category":"Accessories & Consumables"},
+{"name":"Cable Clips","category":"Accessories & Consumables"},
+{"name":"Wall Plugs","category":"Accessories & Consumables"},
+{"name":"Screws","category":"Accessories & Consumables"},
+{"name":"Electrical Boxes","category":"Accessories & Consumables"},
+{"name":"Labels","category":"Accessories & Consumables"},
+{"name":"Installation Accessories","category":"Accessories & Consumables"},
+{"name":"Spare Parts","category":"Accessories & Consumables"}
+];
+/* =========================
+   APP STATE
+========================= */
+let cart = [];
+const search = document.getElementById("search");
+const filter = document.getElementById("filter");
+const cat = document.getElementById("cat");
+const grid = document.getElementById("grid");
+const results = document.getElementById("results");
+const categoryButtons = document.getElementById("categoryButtons");
+const modal = document.getElementById("modal");
+const items = document.getElementById("items");
+const empty = document.getElementById("empty");
+const count = document.getElementById("count");
+const wa = document.getElementById("wa");
+const backTop = document.getElementById("backTop");
+const categories = [...new Set(products.map(product => product.category))];
+/* =========================
+   CATEGORY ICONS
+========================= */
+function categoryIcon(category){
+  const icons = {
+    "Electrical Materials":"⚡",
+    "Switches & Sockets":"🔌",
+    "Lighting":"💡",
+    "Electrical Tools":"🔧",
+    "Electronics":"📺",
+    "Home Appliances":"🏠",
+    "Power & Backup":"🔋",
+    "Safety & Security":"🛡️",
+    "Accessories & Consumables":"🧰"
+  };
+  return icons[category] || "📦";
+}
+/* =========================
+   BUILD CATEGORIES
+========================= */
+categories.forEach(category => {
+  const option = document.createElement("option");
+  option.value = category;
+  option.textContent = category;
+  cat.appendChild(option);
+});
+function buildCategoryButtons(){
+  categoryButtons.innerHTML = "";
+  const all = document.createElement("button");
+  all.textContent = "All Products";
+  all.className = !cat.value ? "active" : "";
+  all.onclick = () => {
+    cat.value = "";
+    render();
+  };
+  categoryButtons.appendChild(all);
+  categories.forEach(category => {
+    const button = document.createElement("button");
+    button.textContent = categoryIcon(category) + " " + category;
+    button.className = cat.value === category ? "active" : "";
+    button.onclick = () => {
+      cat.value = category;
+      render();
+    };
+    categoryButtons.appendChild(button);
+  });
+}
+/* =========================
+   RENDER PRODUCTS
+========================= */
+function render(){
+  const query = (
+    search.value + " " + filter.value
+  ).trim().toLowerCase();
+  const selectedCategory = cat.value;
+  const visibleProducts = products.filter(product => {
+    const matchesCategory =
+      !selectedCategory ||
+      product.category === selectedCategory;
+    const matchesSearch =
+      !query ||
+      (
+        product.name +
+        " " +
+        product.category
+      ).toLowerCase().includes(query);
+    return matchesCategory && matchesSearch;
+  });
+  results.textContent =
+    visibleProducts.length +
+    " product" +
+    (visibleProducts.length === 1 ? "" : "s") +
+    " found";
+  if(!visibleProducts.length){
+    grid.innerHTML = `
+      <div class="empty-products">
+        <div style="font-size:40px">🔎</div>
+        <h3>No products found</h3>
+        <p>Try another search or category.</p>
+      </div>
+    `;
+    buildCategoryButtons();
+    return;
+  }
+  grid.innerHTML = visibleProducts.map(product => {
+    const icon = categoryIcon(product.category);
+    return `
+      <article class="card">
+        <div class="pic">
+          ${icon}
+          <small>${escapeHTML(product.category)}</small>
+        </div>
+        <div class="cat">
+          ${escapeHTML(product.category)}
+        </div>
+        <h3>${escapeHTML(product.name)}</h3>
+        <div class="price">
+          Price on request
+        </div>
+        <div class="muted">
+          Confirm current price & availability
+        </div>
+        <button
+          class="btn"
+          onclick="addToCart('${escapeAttribute(product.name)}','${escapeAttribute(product.category)}')"
+        >
+          🛒 Add to Order
+        </button>
+      </article>
+    `;
+  }).join("");
+  buildCategoryButtons();
+}
+/* =========================
+   ESCAPE HELPERS
+========================= */
+function escapeHTML(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+function escapeAttribute(value){
+  return String(value)
+    .replaceAll("\\","\\\\")
+    .replaceAll("'","\\'");
+}
+/* =========================
+   CART
+========================= */
+function addToCart(name, category){
+  const existing = cart.find(
+    item => item.name === name
+  );
+  if(existing){
+    existing.quantity++;
+  }else{
+    cart.push({
+      name,
+      category,
+      quantity:1
+    });
+  }
+  updateCart();
+  openCart();
+}
+function increaseItem(index){
+  cart[index].quantity++;
+  updateCart();
+}
+function decreaseItem(index){
+  cart[index].quantity--;
+  if(cart[index].quantity <= 0){
+    cart.splice(index,1);
+  }
+  updateCart();
+}
+function removeItem(index){
+  cart.splice(index,1);
+  updateCart();
+}
+function clearCart(){
+  cart = [];
+  updateCart();
+}
+/* =========================
+   UPDATE CART
+========================= */
+function updateCart(){
+  const totalQuantity = cart.reduce(
+    (total,item) => total + item.quantity,
+    0
+  );
+  count.textContent = totalQuantity;
+  if(!cart.length){
+    items.innerHTML = "";
+    empty.style.display = "block";
+    wa.removeAttribute("href");
+    return;
+  }
+  empty.style.display = "none";
+  items.innerHTML = cart.map((item,index) => `
+    <div class="item">
+      <div>
+        <div class="item-name">
+          ${index + 1}. ${escapeHTML(item.name)}
+        </div>
+        <span class="item-category">
+          ${escapeHTML(item.category)}
+        </span>
+      </div>
+      <div class="qty">
+        <button onclick="decreaseItem(${index})">
+          −
+        </button>
+        <strong>${item.quantity}</strong>
+        <button onclick="increaseItem(${index})">
+          +
+        </button>
+        <button
+          class="remove"
+          onclick="removeItem(${index})"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  `).join("");
+  const messageLines = [
+    "Hello Okiki Electrical World,",
+    "",
+    "I want to request prices and availability for:",
+    "",
+    ...cart.map(
+      (item,index) =>
+        `${index + 1}. ${item.name} - Quantity: ${item.quantity}`
+    ),
+    "",
+    "Please confirm the current price and availability.",
+    "",
+    "Thank you."
+  ];
+  const message = encodeURIComponent(
+    messageLines.join("\n")
+  );
+  wa.href =
+    "https://wa.me/2348133987128?text=" +
+    message;
+}
+/* =========================
+   MODAL
+========================= */
+function openCart(){
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeCart(){
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+}
+/* =========================
+   MOBILE MENU
+========================= */
+function toggleMenu(){
+  document
+    .getElementById("nav")
+    .classList.toggle("show");
+}
+/* Close mobile menu after navigation */
+document.querySelectorAll(".nav a").forEach(link => {
+  link.addEventListener("click", () => {
+    document
+      .getElementById("nav")
+      .classList.remove("show");
+  });
+});
+/* =========================
+   SEARCH
+========================= */
+search.addEventListener("input", render);
+filter.addEventListener("input", render);
+cat.addEventListener("change", render);
+/* =========================
+   ESC KEY
+========================= */
+document.addEventListener("keydown", event => {
+  if(event.key === "Escape"){
+    closeCart();
+  }
+});
+/* =========================
+   BACK TO TOP
+========================= */
+window.addEventListener("scroll", () => {
+  backTop.style.display =
+    window.scrollY > 500 ? "block" : "none";
+});
+/* =========================
+   YEAR
+========================= */
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+/* =========================
+   START APP
+========================= */
+buildCategoryButtons();
+render();
+updateCart();
+</script>
+</body>
+</html>
