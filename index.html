@@ -974,48 +974,7 @@ function buildCategoryButtons(){
    RENDER PRODUCTS
 ========================= */
 function getProductImage(product) {
-  const text = (
-    (product.category || "") + " " +
-    (product.name || "")
-  ).toLowerCase();
-
-  const images = [
-    {
-      words: ["cable", "wire"],
-      url: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      words: ["bulb", "lamp", "light"],
-      url: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      words: ["switch", "socket", "plug"],
-      url: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      words: ["tool", "plier", "screwdriver", "drill"],
-      url: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      words: ["tv", "television"],
-      url: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      words: ["fridge", "refrigerator"],
-      url: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      words: ["solar", "battery", "inverter"],
-      url: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=600&q=80"
-    }
-  ];
-
-  const match = images.find(item =>
-    item.words.some(word => text.includes(word))
-  );
-
-  return match ? match.url :
-    "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80";
+  return "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80";
 }
   function render(){
   const query = (
