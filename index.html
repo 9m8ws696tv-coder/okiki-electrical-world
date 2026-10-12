@@ -219,17 +219,19 @@ select,.filter{
   grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
   gap:16px;
 }
-.card{
-  background:#fff;
-  border:1px solid #e0e5eb;
-  border-radius:14px;
-  padding:13px;
-  overflow:hidden;
-  transition:.2s;
+.card {
+  background: #ffffff;
+  border: 1px solid #e0e5eb;
+  border-radius: 16px;
+  padding: 15px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(7, 18, 29, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 8px 25px #07121d12;
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(7, 18, 29, 0.12);
 }
 .pic{
   height:155px;
