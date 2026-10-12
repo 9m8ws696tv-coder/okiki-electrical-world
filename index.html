@@ -553,11 +553,37 @@ footer p{line-height:1.6;font-size:13px}
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:10px;
   }
-  .card{padding:9px}
-  .pic{height:120px;font-size:32px}
-  .card h3{
-    font-size:14px;
-  }
+.card {
+  padding: 10px;
+  border-radius: 13px;
+}
+
+.pic {
+  height: 140px;
+  font-size: 32px;
+  overflow: hidden;
+}
+
+.pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.card h3 {
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.price {
+  font-size: 15px;
+}
+
+.btn {
+  padding: 12px 8px;
+  font-size: 14px;
+}
   .service-grid{
     grid-template-columns:1fr;
   }
