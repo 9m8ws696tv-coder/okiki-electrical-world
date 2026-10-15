@@ -1036,18 +1036,24 @@ function buildCategoryButtons(){
 /* =========================
    RENDER PRODUCTS
 ========================= */
+
 function getProductImage(product) {
   const name = product.name.toLowerCase();
   const category = product.category.toLowerCase();
   const text = name + " " + category;
 
-if (/single core cable/.test(name)) {
-  return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/8b98963caa32dd76fd2f10031c78d72b1a8e80c3/676119A5-F137-48E7-B792-3302BE9E8440.png";
-}
+  // New picture for Drills and Cordless Drills
+  if (/drill/.test(name)) {
+    return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/e8cfcf267f2c32992ead484e95e872eb43845a8e/676119A5-F137-48E7-B792-3302BE9E8440.png";
+  }
 
-if (/cable|wire|conduit|trunking/.test(name)) {
-  return "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80";
-}
+  if (/single core cable/.test(name)) {
+    return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/8b98963caa32dd76fd2f10031c78d72b1a8e80c3/676119A5-F137-48E7-B792-3302BE9E8440.png";
+  }
+
+  if (/cable|wire|conduit|trunking/.test(name)) {
+    return "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80";
+  }
 
   if (/bulb|lamp|lighting|light/.test(text)) {
     return "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80";
@@ -1057,7 +1063,7 @@ if (/cable|wire|conduit|trunking/.test(name)) {
     return "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80";
   }
 
-  if (/tool|drill|plier|screwdriver/.test(text)) {
+  if (/tool|plier|screwdriver/.test(text)) {
     return "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80";
   }
 
