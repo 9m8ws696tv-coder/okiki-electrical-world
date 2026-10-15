@@ -978,6 +978,12 @@ function buildCategoryButtons(){
    RENDER PRODUCTS
 ========================= */
 function getProductImage(product) {
+  const name = product.name.toLowerCase();
+
+  if (/drill/.test(name)) {
+    return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/9c52b4e60a8874fc954d2d3a7983f96ced6ca705/IMG_1718.jpeg";
+  }
+
   return "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80";
 }
   function render(){
