@@ -977,15 +977,38 @@ function buildCategoryButtons(){
 /* =========================
    RENDER PRODUCTS
 ========================= */
-
 function getProductImage(product) {
   const name = product.name.toLowerCase();
+  const category = product.category.toLowerCase();
+  const text = name + " " + category;
 
+  // Drills
   if (/drill/.test(name)) {
     return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/9c52b4e60a8874fc954d2d3a7983f96ced6ca705/IMG_1718.jpeg";
   }
 
-  return "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80";
+  // Electrical cables and wires
+  if (/cable|wire|conduit|trunking/.test(text)) {
+    return "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80";
+  }
+
+  // Bulbs and lighting
+  if (/bulb|lamp|lighting|light/.test(text)) {
+    return "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80";
+  }
+
+  // Switches, sockets and plugs
+  if (/switch|socket|plug/.test(text)) {
+    return "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80";
+  }
+
+  // Hand tools
+  if (/plier|screwdriver|spanner|wrench|hammer/.test(text)) {
+    return "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80";
+  }
+
+  // Other electrical products
+  return "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80";
 }
   function render(){
   const query = (
