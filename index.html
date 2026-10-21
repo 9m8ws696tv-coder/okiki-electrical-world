@@ -986,9 +986,9 @@ function getProductImage(product) {
   if (/drill/.test(name)) {
     return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/9c52b4e60a8874fc954d2d3a7983f96ced6ca705/IMG_1718.jpeg";
   }
-
-  // Wire cable 1mm to 4mm
-  if (/cable|wire/.test(name)) {
+ 
+  // Picture for Single Core Cable and Flexible Cable only
+  if (/single[\s-]*core\s*cable|flexible\s*cable/i.test(name)) {
     return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/main/5FC32C6A-1D6F-47FB-B0BE-515515909D76.png";
   }
 
