@@ -992,17 +992,22 @@ function getProductImage(product) {
   if (/drill|impact driver/.test(name)) {
     return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/9c52b4e60a8874fc954d2d3a7983f96ced6ca705/IMG_1718.jpeg";
   }
+ 
+  // Electrical Cables & Wires: assorted wire colours
+  if (/^electrical cables\s*&\s*wires$/i.test(name)) {
+    return "https://www.dechta.com/wire.png";
+  }
 
-  // Uploaded picture: Single Core Cable sizes only
+  // Single Core Cable: keep your current picture
   if (/^single[\s-]*core\s*cable\b/i.test(name)) {
     return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/main/5FC32C6A-1D6F-47FB-B0BE-515515909D76.png";
   }
 
-  // Uploaded picture: Flexible Cable sizes only
+  // Flexible Cable: use a different picture
   if (/^flexible\s*cable\b/i.test(name)) {
-    return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/main/5FC32C6A-1D6F-47FB-B0BE-515515909D76.png";
+    return "https://iqrorwxhjqmmlm5m-static.micyjz.com/cloud/loBpoKkolqSRrliiqpjojq/IMG_0547.jpg";
   }
-
+  
   // Armoured Cable: separate product picture
   if (/armou?red/.test(name)) {
     return "https://image.made-in-china.com/2f0j00JpWetvSBkGom/4c16-mm2-Cu-XLPE-PVC-Swa-PVC-Copper-Steel-Wire-Armored-Cable.jpg";
