@@ -1003,8 +1003,18 @@ function getProductImage(product) {
     return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/main/5FC32C6A-1D6F-47FB-B0BE-515515909D76.png";
   }
 
-  // Other cables must not use the uploaded cable picture
-  if (/armou?red|solar cable|twin.and.earth/.test(name)) {
+  // Armoured Cable: separate product picture
+  if (/armou?red/.test(name)) {
+    return "https://image.made-in-china.com/2f0j00JpWetvSBkGom/4c16-mm2-Cu-XLPE-PVC-Swa-PVC-Copper-Steel-Wire-Armored-Cable.jpg";
+  }
+
+  // Solar Cables: separate red and black cable picture
+  if (/solar cable/.test(name)) {
+    return "https://iricosolar.com/cdn/shop/files/H1Z2Z2-K-a.jpg?v=1730651158&width=1445";
+  }
+
+  // Twin-and-earth cable: use a separate fallback
+  if (/twin.and.earth/.test(name)) {
     return "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80";
   }
 
