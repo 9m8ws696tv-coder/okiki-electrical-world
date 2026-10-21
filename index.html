@@ -988,14 +988,24 @@ function getProductImage(product) {
   const category = product.category.toLowerCase();
   const text = name + " " + category;
 
-  // Drills
-  if (/drill/.test(name)) {
+  // Drills: keep your correct drill picture
+  if (/drill|impact driver/.test(name)) {
     return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/9c52b4e60a8874fc954d2d3a7983f96ced6ca705/IMG_1718.jpeg";
   }
- 
-  // Picture for Single Core Cable and Flexible Cable only
-  if (/single[\s-]*core\s*cable|flexible\s*cable/i.test(name)) {
+
+  // Uploaded picture: Single Core Cable sizes only
+  if (/^single[\s-]*core\s*cable\b/i.test(name)) {
     return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/main/5FC32C6A-1D6F-47FB-B0BE-515515909D76.png";
+  }
+
+  // Uploaded picture: Flexible Cable sizes only
+  if (/^flexible\s*cable\b/i.test(name)) {
+    return "https://raw.githubusercontent.com/9m8ws696tv-coder/okiki-electrical-world/main/5FC32C6A-1D6F-47FB-B0BE-515515909D76.png";
+  }
+
+  // Other cables must not use the uploaded cable picture
+  if (/armou?red|solar cable|twin.and.earth/.test(name)) {
+    return "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80";
   }
 
   // Bulbs and lighting
@@ -1013,7 +1023,7 @@ function getProductImage(product) {
     return "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80";
   }
 
-  // Other electrical products
+  // Default image for other products
   return "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80";
 }
   function render(){
