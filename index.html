@@ -1075,7 +1075,7 @@ function getProductImage(product) {
     buildCategoryButtons();
     return;
   }
-  grid.innerHTML = visibleProducts.map(product => {
+  grid.innerHTML = visibleProducts.map((product, index) => {
     const icon = categoryIcon(product.category);
     return `
       <article class="card">
@@ -1092,20 +1092,39 @@ function getProductImage(product) {
 </div>
         <div class="cat">
           ${escapeHTML(product.category)}
-        </div>
+        </div>  
         <h3>${escapeHTML(product.name)}</h3>
-        <div class="price">
-          Price on request
-        </div>
+
+${
+  /^(single core cable|flexible cable)/i.test(product.name)
+    ? `
+      <label for="cable-size-${index}">Select cable size:</label>
+      <select id="cable-size-${index}" class="cable-size">
+        <option value="1 mm²">1 mm²</option>
+        <option value="1.5 mm²">1.5 mm²</option>
+        <option value="2.5 mm²">2.5 mm²</option>
+        <option value="4 mm²">4 mm²</option>
+      </select>
+    `
+    : ""
+}
+
+<div class="price">
+  Price on request
+</div>
         <div class="muted">
           Confirm current price & availability
         </div>
-        <button
-          class="btn"
-          onclick="addToCart('${escapeAttribute(product.name)}','${escapeAttribute(product.category)}')"
-        >
-          🛒 Add to Order
-        </button>
+<button
+  class="btn"
+  onclick="addProductToOrder(
+    '${escapeAttribute(product.name)}',
+    '${escapeAttribute(product.category)}',
+    '${/^(single core cable|flexible cable)/i.test(product.name) ? `cable-size-${index}` : ""}'
+  )"
+>
+  🛒 Add to Order
+</button>
       </article>
     `;
   }).join("");
@@ -1127,22 +1146,40 @@ function escapeAttribute(value){
     .replaceAll("\\","\\\\")
     .replaceAll("'","\\'");
 }
+function addProductToOrder(name, category, sizeId) {
+  let specification = "";
+
+  if (sizeId) {
+    const sizeSelect = document.getElementById(sizeId);
+
+    if (sizeSelect) {
+      specification = sizeSelect.value;
+    }
+  }
+
+  addToCart(name, category, specification);
+}
 /* =========================
    CART
 ========================= */
-function addToCart(name, category){
+function addToCart(name, category, specification = "") {
   const existing = cart.find(
-    item => item.name === name
+    item =>
+      item.name === name &&
+      item.specification === specification
   );
-  if(existing){
+
+  if (existing) {
     existing.quantity++;
-  }else{
+  } else {
     cart.push({
       name,
       category,
-      quantity:1
+      specification,
+      quantity: 1
     });
   }
+
   updateCart();
   openCart();
 }
@@ -1170,35 +1207,49 @@ function clearCart(){
 ========================= */
 function updateCart(){
   const totalQuantity = cart.reduce(
-    (total,item) => total + item.quantity,
+    (total, item) => total + item.quantity,
     0
   );
+
   count.textContent = totalQuantity;
+
   if(!cart.length){
     items.innerHTML = "";
     empty.style.display = "block";
     wa.removeAttribute("href");
     return;
   }
+
   empty.style.display = "none";
-  items.innerHTML = cart.map((item,index) => `
+
+  items.innerHTML = cart.map((item, index) => `
     <div class="item">
       <div>
         <div class="item-name">
           ${index + 1}. ${escapeHTML(item.name)}
         </div>
+
         <span class="item-category">
           ${escapeHTML(item.category)}
         </span>
+
+        ${
+          item.specification
+            ? `<div class="item-category">
+                 Specification: ${escapeHTML(item.specification)}
+               </div>`
+            : ""
+        }
+
+        <div class="item-category">
+          Price: Price on request
+        </div>
       </div>
+
       <div class="qty">
-        <button onclick="decreaseItem(${index})">
-          −
-        </button>
+        <button onclick="decreaseItem(${index})">−</button>
         <strong>${item.quantity}</strong>
-        <button onclick="increaseItem(${index})">
-          +
-        </button>
+        <button onclick="increaseItem(${index})">+</button>
         <button
           class="remove"
           onclick="removeItem(${index})"
@@ -1208,26 +1259,31 @@ function updateCart(){
       </div>
     </div>
   `).join("");
+
   const messageLines = [
     "Hello Okiki Electrical World,",
     "",
     "I want to request prices and availability for:",
     "",
-    ...cart.map(
-      (item,index) =>
-        `${index + 1}. ${item.name} - Quantity: ${item.quantity}`
+    ...cart.map((item, index) =>
+      `${index + 1}. ${item.name}` +
+      (item.specification
+        ? ` - Specification: ${item.specification}`
+        : "") +
+      ` - Quantity: ${item.quantity} - Price on request`
     ),
     "",
     "Please confirm the current price and availability.",
     "",
     "Thank you."
   ];
+
   const message = encodeURIComponent(
     messageLines.join("\n")
   );
+
   wa.href =
-    "https://wa.me/2348133987128?text=" +
-    message;
+    "https://wa.me/2348133987128?text=" + message;
 }
 /* =========================
    MODAL
